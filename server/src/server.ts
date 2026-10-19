@@ -81,47 +81,45 @@ app.get(['/spendwise.apk', '/api/download/apk'], (req, res) => {
   res.sendFile(apkPath);
 });
 
-// Health and privacy verification route
-app.get('/api/health', (req, res) => {
+// Ensure DB is initialized before handling any requests
+let dbInitPromise: Promise<void> | null = null;
+app.use(async (req, res, next) => {
+  if (!dbInitPromise) {
+    dbInitPromise = db.initialize().catch(err => {
+      console.error('Error during database initialization:', err);
+    });
+  }
+  await dbInitPromise;
+  next();
+});
+
+// Health and privacy verification route (supports both /api/health and /health)
+app.get(['/api/health', '/health'], (req, res) => {
   res.json({
     status: 'ok',
     service: 'SpendWise Authentication API',
+    neonConnected: !db.getIsFallback(),
     privacyNote: 'Zero financial data is stored in the database. Only credentials and auth sessions are managed here.'
   });
 });
 
-// Routes
-app.use('/api/auth', authLimiter, authRoutes);
-app.use('/api/drive', driveRoutes);
-
-// Ensure DB is initialized (works for both standalone and serverless environments like Vercel)
-let dbInitialized = false;
-app.use(async (req, res, next) => {
-  if (!dbInitialized) {
-    try {
-      await db.initialize();
-      dbInitialized = true;
-    } catch (err) {
-      console.error('Error during database initialization:', err);
-    }
-  }
-  next();
-});
+// Routes (supports both /api/auth and /auth prefixes)
+app.use(['/api/auth', '/auth'], authLimiter, authRoutes);
+app.use(['/api/drive', '/drive'], driveRoutes);
 
 // Global Error Handler
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
   console.error('Unhandled server error:', err);
-  res.status(500).json({ error: 'Internal server error' });
+  res.status(500).json({ error: err.message || 'Internal server error' });
 });
 
-// Only bind to local port if NOT running as a serverless function (e.g. on Vercel)
-if (!process.env.VERCEL && process.env.NODE_ENV !== 'test') {
-  db.initialize().then(() => {
-    app.listen(PORT, () => {
-      console.log(`🚀 SpendWise Backend running on http://localhost:${PORT}`);
-      console.log(`🔒 Privacy Architecture: Database holds auth credentials only.`);
-    });
+// Start listening on port (works in all environments, including Vercel Services)
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => {
+    console.log(`🚀 SpendWise Backend running on port ${PORT}`);
+    console.log(`🔒 Privacy Architecture: Database holds auth credentials only.`);
   });
+  db.initialize().catch(err => console.error('Error during initial DB connect:', err));
 }
 
 export default app;

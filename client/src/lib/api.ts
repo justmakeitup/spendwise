@@ -10,19 +10,24 @@ export class ApiError extends Error {
 }
 
 async function request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-  const res = await fetch(`${API_BASE}${endpoint}`, {
-    ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      ...options.headers
-    },
-    credentials: 'include'
-  });
+  let res: Response;
+  try {
+    res = await fetch(`${API_BASE}${endpoint}`, {
+      ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+      },
+      credentials: 'include'
+    });
+  } catch (netErr: any) {
+    throw new ApiError(netErr.message || 'Network connection failed. Please check your internet or server status.', 0);
+  }
 
   const data = await res.json().catch(() => ({}));
 
   if (!res.ok) {
-    throw new ApiError(data.error || 'Network request failed', res.status);
+    throw new ApiError(data.error || `Server returned error (${res.status})`, res.status);
   }
 
   return data as T;
