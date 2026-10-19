@@ -4,8 +4,8 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsc",
-    "start": "node dist/server.js",
+    "build": "esbuild src/server.ts --bundle --platform=node --target=node20 --format=cjs --packages=external --outfile=index.js",
+    "start": "node index.js",
     "test": "tsx --test src/**/*.test.ts"
   },
   "dependencies": {
@@ -29,6 +29,7 @@
     "@types/jsonwebtoken": "^9.0.8",
     "@types/node": "^22.10.7",
     "@types/pg": "^8.11.10",
+    "esbuild": "^0.28.2",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3"
   }
