@@ -1,4 +1,4 @@
-import { Category, UserPreferences } from './types';
+import { Category, UserPreferences } from './types.js';
 
 export const DEFAULT_CATEGORIES: Category[] = [
   { id: 'cat-food', name: 'Food & Groceries', type: 'expense', icon: 'UtensilsCrossed', color: '#10B981', isDefault: true },

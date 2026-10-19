@@ -113,8 +113,8 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
   res.status(500).json({ error: err.message || 'Internal server error' });
 });
 
-// Start listening on port (works in all environments, including Vercel Services)
-if (process.env.NODE_ENV !== 'test') {
+// Start listening on port in local/standalone environments (on Vercel, requests are handled via exported app)
+if (!process.env.VERCEL && process.env.NODE_ENV !== 'test') {
   app.listen(PORT, () => {
     console.log(`🚀 SpendWise Backend running on port ${PORT}`);
     console.log(`🔒 Privacy Architecture: Database holds auth credentials only.`);
@@ -123,3 +123,7 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 export default app;
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = app;
+  module.exports.default = app;
+}

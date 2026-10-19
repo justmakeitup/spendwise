@@ -1,4 +1,4 @@
-export * from './types';
+export * from './types.js';
 
 export {
   PasswordSchema,
@@ -14,11 +14,11 @@ export {
   UserPreferencesSchema,
   FinancialDataPayloadSchema,
   EncryptedBackupPayloadSchema
-} from './schemas';
+} from './schemas.js';
 
 export {
   DEFAULT_CATEGORIES,
   PAYMENT_METHODS,
   SUPPORTED_CURRENCIES,
   DEFAULT_PREFERENCES
-} from './defaults';
+} from './defaults.js';
