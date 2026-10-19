@@ -4,6 +4,7 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
+    "prebuild": "npm run build --workspace=@spendwise/shared",
     "build": "tsc",
     "start": "node dist/server.js",
     "test": "tsx --test src/**/*.test.ts"

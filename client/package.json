@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "npm run build --workspace=@spendwise/shared",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },

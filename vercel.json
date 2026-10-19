@@ -1,7 +1,23 @@
 {
-  "version": 2,
-  "buildCommand": "npm run build",
-  "outputDirectory": "client/dist",
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "client": {
+      "root": "client",
+      "framework": "vite"
+    },
+    "server": {
+      "root": "server",
+      "framework": "express",
+      "bindings": [
+        {
+          "type": "service",
+          "service": "client",
+          "format": "url",
+          "env": "CLIENT_URL"
+        }
+      ]
+    }
+  },
   "headers": [
     {
       "source": "/spendwise.apk",
@@ -24,11 +40,15 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/api/index.ts"
+      "destination": {
+        "service": "server"
+      }
     },
     {
       "source": "/(.*)",
-      "destination": "/index.html"
+      "destination": {
+        "service": "client"
+      }
     }
   ]
 }

@@ -8,7 +8,7 @@ dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 import { db } from './index';
 import bcrypt from 'bcryptjs';
-import { v4 as uuidv4 } from 'uuid';
+import crypto from 'crypto';
 
 async function runEndToEndNeonTest() {
   console.log('🚀 Starting Neon PostgreSQL End-to-End Verification...');
@@ -22,7 +22,7 @@ async function runEndToEndNeonTest() {
   // Step 2: Verify Tables Created
   const testEmail = `neon_test_${Date.now()}@spendwise.local`;
   const testPassword = 'Password123!Safe';
-  const testId = uuidv4();
+  const testId = crypto.randomUUID();
 
   console.log('\n--- 2. Creating User Record in Neon PostgreSQL ---');
   const salt = await bcrypt.genSalt(10);
