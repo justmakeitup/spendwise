@@ -1,0 +1,24 @@
+{
+  "name": "spendwise-root",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SpendWise — Premium, Private Personal Expense Tracker",
+  "workspaces": [
+    "shared",
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace=server\" \"npm run dev --workspace=client\"",
+    "build": "npm run build --workspace=shared && npm run build --workspace=server && npm run build --workspace=client",
+    "start": "node server/dist/server.js",
+    "test": "npm run test --workspace=server && npx tsx --test tests/financial.test.ts"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "dependencies": {
+    "@neon/config": "^1.9.2",
+    "@neon/env": "^1.6.3"
+  }
+}

@@ -1,0 +1,357 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-primary: #0B0F19;
+    --surface-primary: #111827;
+    --surface-elevated: #1F2937;
+    --border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .light {
+    --bg-primary: #FFFFFF;
+    --surface-primary: #FFFFFF;
+    --surface-elevated: #FAFAFA;
+    --border-color: #1E293B;
+  }
+
+  html, body {
+    background-color: var(--bg-primary);
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden !important;
+    position: relative;
+    touch-action: pan-y pinch-zoom;
+    -webkit-text-size-adjust: 100%;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  #root {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden !important;
+    min-height: 100vh;
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.2);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.4);
+}
+
+.glass-panel {
+  background: rgba(17, 24, 39, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.glow-hover {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glow-hover:hover {
+  box-shadow: 0 0 20px -3px rgba(16, 185, 129, 0.2);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+/* ==========================================================================
+   TRANSLUCENT GLASSMORPHISM (Top bar, Sidebar, Bottom navigation)
+   ========================================================================== */
+.glass-navbar {
+  background: rgba(11, 15, 25, 0.65) !important;
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 30px 0 rgba(0, 0, 0, 0.20), inset 0 1px 0 0 rgba(255, 255, 255, 0.08) !important;
+}
+
+.glass-sidebar {
+  background: rgba(11, 15, 25, 0.70) !important;
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 4px 0 30px 0 rgba(0, 0, 0, 0.20), inset 1px 0 0 0 rgba(255, 255, 255, 0.05) !important;
+}
+
+.glass-dock {
+  background: rgba(11, 15, 25, 0.75) !important;
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 -4px 30px 0 rgba(0, 0, 0, 0.25), inset 0 1px 0 0 rgba(255, 255, 255, 0.08) !important;
+}
+
+.glass-control {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-control:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+/* ==========================================================================
+   PURE WHITE MODE STYLING (Crisp white background, black borders, black & gold typography)
+   ========================================================================== */
+.light,
+.light body {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+}
+
+.light .bg-background {
+  background-color: #FFFFFF !important;
+}
+
+.light .bg-surface,
+.light [class*="bg-surface/"] {
+  background-color: #FFFFFF !important;
+  border-color: rgba(15, 23, 42, 0.22) !important;
+  color: #0F172A !important;
+  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.06) !important;
+}
+
+.light .bg-surface-elevated,
+.light [class*="bg-surface-elevated"] {
+  background-color: #F8FAFC !important;
+  border-color: rgba(15, 23, 42, 0.20) !important;
+  color: #0F172A !important;
+}
+
+.light .bg-surface-card,
+.light [class*="bg-surface-card"] {
+  background-color: #FFFFFF !important;
+  border-color: rgba(15, 23, 42, 0.20) !important;
+  color: #0F172A !important;
+}
+
+/* Progress bar tracks in light mode */
+.light .rounded-full.bg-surface-elevated,
+.light [class*="bg-surface-elevated"].rounded-full {
+  background-color: #E2E8F0 !important;
+}
+
+.light .glass-panel {
+  background: #FFFFFF !important;
+  border: 1.5px solid rgba(15, 23, 42, 0.20) !important;
+  box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.07) !important;
+}
+
+.light .border-surface-border,
+.light [class*="border-surface-border"] {
+  border-color: rgba(15, 23, 42, 0.20) !important;
+}
+
+.light .border-r {
+  border-right-color: rgba(15, 23, 42, 0.18) !important;
+}
+
+.light .border-b {
+  border-bottom-color: rgba(15, 23, 42, 0.18) !important;
+}
+
+.light .border-t {
+  border-top-color: rgba(15, 23, 42, 0.18) !important;
+}
+
+/* Secondary and outline buttons in light mode */
+.light button.bg-surface-elevated,
+.light button[class*="bg-surface-elevated"] {
+  background-color: #FFFFFF !important;
+  border: 1.5px solid rgba(15, 23, 42, 0.25) !important;
+  color: #090D16 !important;
+  font-weight: 600 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+.light button.bg-surface-elevated:hover,
+.light button[class*="bg-surface-elevated"]:hover {
+  background-color: #F1F5F9 !important;
+  border-color: rgba(15, 23, 42, 0.4) !important;
+}
+
+.light button.border-surface-border,
+.light button[class*="border-surface-border"] {
+  background-color: #FFFFFF !important;
+  border: 1.5px solid rgba(15, 23, 42, 0.25) !important;
+  color: #090D16 !important;
+  font-weight: 600 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+.light button.border-surface-border:hover,
+.light button[class*="border-surface-border"]:hover {
+  background-color: #F1F5F9 !important;
+  border-color: rgba(16, 185, 129, 0.6) !important;
+  color: #059669 !important;
+}
+
+/* Translucent Glassmorphic Bars in Light Mode */
+.light .glass-navbar {
+  background: rgba(255, 255, 255, 0.72) !important;
+  backdrop-filter: blur(24px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+  border-bottom: 1.5px solid rgba(15, 23, 42, 0.12) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+}
+
+.light .glass-sidebar {
+  background: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(28px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+  border-right: 1.5px solid rgba(15, 23, 42, 0.12) !important;
+  box-shadow: 4px 0 30px rgba(0, 0, 0, 0.05), inset 1px 0 0 rgba(255, 255, 255, 0.8) !important;
+}
+
+.light .glass-dock {
+  background: rgba(255, 255, 255, 0.78) !important;
+  backdrop-filter: blur(24px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+  border-top: 1.5px solid rgba(15, 23, 42, 0.12) !important;
+  box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+}
+
+.light .glass-control {
+  background: rgba(0, 0, 0, 0.04) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1.5px solid rgba(15, 23, 42, 0.15) !important;
+}
+
+.light .glass-control:hover {
+  background: rgba(0, 0, 0, 0.07) !important;
+  border-color: rgba(16, 185, 129, 0.5) !important;
+}
+
+/* Light Mode Typography: Deep jet black headers, charcoal body, gold accents */
+.light h1,
+.light h2,
+.light h3,
+.light h4,
+.light .font-black,
+.light .font-extrabold {
+  color: #090D16 !important;
+}
+
+.light .text-slate-100 {
+  color: #090D16 !important;
+}
+
+.light .text-slate-200 {
+  color: #0F172A !important;
+}
+
+.light .text-slate-300 {
+  color: #1E293B !important;
+}
+
+.light .text-slate-400 {
+  color: #475569 !important;
+}
+
+.light .text-slate-500 {
+  color: #64748B !important;
+}
+
+.light strong,
+.light b {
+  color: #090D16 !important;
+}
+
+.light code {
+  color: #059669 !important;
+  background-color: rgba(5, 150, 105, 0.1) !important;
+  border: 1px solid rgba(5, 150, 105, 0.2) !important;
+}
+
+/* Golden text and accents in light mode */
+.light .text-golden {
+  color: #D97706 !important;
+}
+
+.light .gold-gradient {
+  background: linear-gradient(135deg, #B45309 0%, #D97706 50%, #F59E0B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Form inputs & selects in light mode */
+.light input,
+.light select,
+.light textarea {
+  background-color: #FFFFFF !important;
+  color: #090D16 !important;
+  border-color: rgba(15, 23, 42, 0.25) !important;
+}
+
+.light input:focus,
+.light select:focus,
+.light textarea:focus {
+  border-color: #059669 !important;
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15) !important;
+}
+
+.light input::placeholder,
+.light textarea::placeholder {
+  color: #94A3B8 !important;
+}
+
+/* Tables in light mode */
+.light table thead {
+  background-color: #F8FAFC !important;
+  color: #334155 !important;
+  border-bottom: 2px solid rgba(15, 23, 42, 0.15) !important;
+}
+
+.light table tbody tr:hover {
+  background-color: #F8FAFC !important;
+}
+
+/* Keep primary buttons and badges vivid and readable */
+.light button.bg-emerald-500,
+.light .bg-emerald-500 {
+  color: #FFFFFF !important;
+}
+
+.light button.bg-rose-500,
+.light .bg-rose-500 {
+  color: #FFFFFF !important;
+}
+
+/* Modal in light mode */
+.light .relative.bg-surface {
+  background-color: #FFFFFF !important;
+  border: 2px solid rgba(15, 23, 42, 0.25) !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Animation utilities */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

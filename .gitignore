@@ -1,0 +1,39 @@
+# Environment & Secret files (NEVER commit secrets to Git)
+.env
+.env.*
+!.env.example
+.env.local
+server/.env
+client/.env
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build artifacts & distribution
+dist/
+client/dist/
+server/dist/
+shared/dist/
+
+# Neon CLI internal state
+.neon/
+
+# Android build outputs and caches
+client/android/.gradle/
+client/android/build/
+client/android/app/build/
+client/android/local.properties
+client/android/.idea/
+client/android/*.iml
+
+# OS files
+Thumbs.db
+[Dd]esktop.ini
+.DS_Store
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
