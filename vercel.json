@@ -9,6 +9,7 @@
       "root": "server",
       "framework": "express",
       "entrypoint": "index.js",
+      "installCommand": "npm install",
       "bindings": [
         {
           "type": "service",

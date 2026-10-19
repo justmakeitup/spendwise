@@ -4,7 +4,7 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "esbuild src/server.ts --bundle --platform=node --target=node20 --format=cjs --packages=external --outfile=index.js",
+    "build": "esbuild src/server.ts --bundle --platform=node --target=node20 --format=cjs --external:pg-native --outfile=index.js",
     "start": "node index.js",
     "test": "tsx --test src/**/*.test.ts"
   },
