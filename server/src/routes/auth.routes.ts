@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { AuthService } from '../services/auth.service';
-import { SignUpSchema, LoginSchema, ForgotPasswordSchema, ResetPasswordSchema } from '@spendwise/shared';
+import { SignUpSchema, LoginSchema, ForgotPasswordSchema, ResetPasswordSchema } from '../shared';
 import { requireAuth, AuthenticatedRequest } from '../middleware/auth.middleware';
 import { db } from '../db';
 

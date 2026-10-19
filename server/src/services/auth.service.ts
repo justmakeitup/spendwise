@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import { db, UserRow } from '../db';
-import { UserProfile } from '@spendwise/shared';
+import { UserProfile } from '../shared';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'spendwise-super-secret-session-key-32chars!';
 const TOKEN_EXPIRY = '7d';
