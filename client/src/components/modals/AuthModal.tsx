@@ -47,6 +47,18 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
         await login({ email, password });
         onClose();
       } else if (tab === 'register') {
+        if (password.length < 8) {
+          setError('Password must be at least 8 characters long');
+          return;
+        }
+        if (!/[A-Za-z]/.test(password)) {
+          setError('Password must contain at least one letter');
+          return;
+        }
+        if (!/[0-9]/.test(password)) {
+          setError('Password must contain at least one number');
+          return;
+        }
         if (password !== confirmPassword) {
           setError('Passwords do not match');
           return;
@@ -151,28 +163,27 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                 }
               />
 
-              {/* Password strength indicator on register */}
-              {tab === 'register' && password.length > 0 && (
-                <div className="mt-2 space-y-1">
-                  <div className="flex gap-1 h-1.5">
-                    {[1, 2, 3, 4, 5].map(step => (
-                      <div
-                        key={step}
-                        className={`flex-1 rounded-full transition-all ${
-                          strength >= step
-                            ? strength <= 2
-                              ? 'bg-rose-500'
-                              : strength <= 4
-                              ? 'bg-amber-500'
-                              : 'bg-emerald-500'
-                            : 'bg-surface-elevated'
-                        }`}
-                      />
-                    ))}
+              {/* Password requirements and strength on register */}
+              {tab === 'register' && (
+                <div className="mt-2 space-y-2">
+                  <div className="grid grid-cols-2 gap-1.5 text-[11px]">
+                    <div className={`flex items-center gap-1.5 ${password.length >= 8 ? 'text-emerald-400 font-medium' : 'text-slate-400'}`}>
+                      <Check className={`w-3.5 h-3.5 ${password.length >= 8 ? 'text-emerald-400' : 'text-slate-600'}`} />
+                      <span>8+ characters</span>
+                    </div>
+                    <div className={`flex items-center gap-1.5 ${/[A-Za-z]/.test(password) ? 'text-emerald-400 font-medium' : 'text-slate-400'}`}>
+                      <Check className={`w-3.5 h-3.5 ${/[A-Za-z]/.test(password) ? 'text-emerald-400' : 'text-slate-600'}`} />
+                      <span>Contains letter</span>
+                    </div>
+                    <div className={`flex items-center gap-1.5 ${/[0-9]/.test(password) ? 'text-emerald-400 font-medium' : 'text-slate-400'}`}>
+                      <Check className={`w-3.5 h-3.5 ${/[0-9]/.test(password) ? 'text-emerald-400' : 'text-slate-600'}`} />
+                      <span>Contains number</span>
+                    </div>
+                    <div className={`flex items-center gap-1.5 ${confirmPassword && password === confirmPassword ? 'text-emerald-400 font-medium' : 'text-slate-400'}`}>
+                      <Check className={`w-3.5 h-3.5 ${confirmPassword && password === confirmPassword ? 'text-emerald-400' : 'text-slate-600'}`} />
+                      <span>Passwords match</span>
+                    </div>
                   </div>
-                  <p className="text-[10px] text-slate-400">
-                    {strength <= 2 ? 'Weak' : strength <= 4 ? 'Good' : 'Strong password'}
-                  </p>
                 </div>
               )}
             </div>
