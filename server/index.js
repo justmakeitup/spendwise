@@ -693065,7 +693065,7 @@ var import_googleapis = __toESM(require_src12());
 var import_stream = require("stream");
 var GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "";
 var GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || "";
-var GOOGLE_REDIRECT_URI = process.env.GOOGLE_REDIRECT_URI || "http://localhost:3001/api/auth/google/callback";
+var GOOGLE_REDIRECT_URI = process.env.GOOGLE_REDIRECT_URI || (process.env.VERCEL ? "https://spendwise-five-liart.vercel.app/api/drive/callback" : "http://localhost:3001/api/drive/callback");
 var GoogleDriveService = class {
   static getOAuth2Client() {
     return new import_googleapis.google.auth.OAuth2(
@@ -693242,7 +693242,7 @@ router2.get("/auth-url", requireAuth, (req, res) => {
     res.status(500).json({ error: err.message || "Failed to generate Google Drive authorization URL" });
   }
 });
-router2.get("/callback", async (req, res) => {
+router2.get(["/callback", "/google/callback"], async (req, res) => {
   const code = req.query.code;
   const userId = req.query.state;
   if (!code || !userId) {

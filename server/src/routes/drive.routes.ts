@@ -16,8 +16,8 @@ router.get('/auth-url', requireAuth, (req: AuthenticatedRequest, res: Response) 
   }
 });
 
-// OAuth Callback from Google
-router.get('/callback', async (req, res: Response) => {
+// OAuth Callback from Google (supports /callback and /google/callback)
+router.get(['/callback', '/google/callback'], async (req, res: Response) => {
   const code = req.query.code as string;
   const userId = req.query.state as string;
 

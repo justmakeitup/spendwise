@@ -4,7 +4,11 @@ import { Readable } from 'stream';
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '';
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || '';
-const GOOGLE_REDIRECT_URI = process.env.GOOGLE_REDIRECT_URI || 'http://localhost:3001/api/auth/google/callback';
+const GOOGLE_REDIRECT_URI = process.env.GOOGLE_REDIRECT_URI || (
+  process.env.VERCEL
+    ? 'https://spendwise-five-liart.vercel.app/api/drive/callback'
+    : 'http://localhost:3001/api/drive/callback'
+);
 
 export class GoogleDriveService {
   static getOAuth2Client() {
